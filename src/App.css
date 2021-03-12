@@ -1,3 +1,7 @@
+:root {
+  --nav-color: #f7f9fa;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,5 +9,14 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #e5e5e5;
+}
+
+a {
+  color: inherit;
+}
+
+.billboard img {
+  max-width: 100%;
+  width: 100vw;
+  height: auto;
 }

@@ -1,0 +1,12 @@
+.nav-list {
+  margin: 0;
+  padding: 20px 20px;
+  background-color: var(--nav-color);
+  display: flex;
+  justify-content: space-evenly;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.nav-item {
+  list-style: none;
+}
