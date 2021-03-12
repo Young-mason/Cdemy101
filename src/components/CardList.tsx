@@ -1,39 +1,45 @@
-import React from "react";
+import { useState } from "react";
 import { productItems } from "../productItems";
+import Pagination from "./Pagination";
+import pointer from "../modules/pointer";
+import Card from "./Card";
 import "../style/CardList.css";
 
 function CardList() {
-  // productItems를 Card 컴포넌트와 매핑
-  return (
-    <div className="card-list">
-      {productItems.slice(0, 5).map((item) => {
-        const { id, title, coverImage, price, score } = item;
-        return (
-          <Card
-            key={id}
-            title={title}
-            coverImage={coverImage}
-            price={price}
-          ></Card>
-        );
-      })}
-    </div>
-  );
-}
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
-interface CardProps {
-  title: string;
-  coverImage: string;
-  price: number;
-}
+  // 현재 페이지에 들어갈 상품데이터
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = productItems.slice(indexOfFirstItem, indexOfLastItem);
 
-function Card({ title, coverImage, price }: CardProps) {
+  // 페이지 전환
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
-    <div className="card">
-      <img className="card-img" src={coverImage} alt="no-img" />
-      <h5 className="card-title">{title}</h5>
-      <p className="card-price">{price}</p>
-    </div>
+    <>
+      {/* 현재 페이지에 나타날 데이터를 Card 컴포넌트와 매핑 */}
+      <div className="card-list">
+        {currentItems.map((item) => {
+          const { id, title, coverImage, price } = item;
+          return (
+            <Card
+              key={id}
+              title={title}
+              coverImage={coverImage}
+              price={`₩ ${pointer(price)}`}
+            ></Card>
+          );
+        })}
+      </div>
+      {/* 페이지네이션 */}
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalItems={productItems.length}
+        paginate={paginate}
+      />
+    </>
   );
 }
 

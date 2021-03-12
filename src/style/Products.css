@@ -1,0 +1,9 @@
+.billboard img {
+  max-width: 100%;
+  width: 100vw;
+  height: auto;
+}
+
+h1 {
+  margin-left: 20px;
+}
