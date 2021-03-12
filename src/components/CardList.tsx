@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { productItems } from "../productItems";
+import { useCartState } from "../modules/CartContext";
 import Pagination from "./Pagination";
 import pointer from "../modules/pointer";
 import Card from "./Card";
 import "../style/CardList.css";
 
 function CardList() {
+  const cartItems = useCartState();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-
   // 현재 페이지에 들어갈 상품데이터
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -16,7 +17,6 @@ function CardList() {
 
   // 페이지 전환
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
   // 상품데이터 스코어 기준 내림차순 정렬
   productItems.sort((a, b) => b.score - a.score);
 
