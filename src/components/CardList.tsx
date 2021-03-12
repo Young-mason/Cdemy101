@@ -17,6 +17,9 @@ function CardList() {
   // 페이지 전환
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // 상품데이터 스코어 기준 내림차순 정렬
+  productItems.sort((a, b) => b.score - a.score);
+
   return (
     <>
       {/* 현재 페이지에 나타날 데이터를 Card 컴포넌트와 매핑 */}
@@ -28,7 +31,7 @@ function CardList() {
               key={id}
               title={title}
               coverImage={coverImage}
-              price={`₩ ${pointer(price)}`}
+              price={/* 세 자리수 마다 콤마 찍기 */ `₩ ${pointer(price)}`}
             ></Card>
           );
         })}
