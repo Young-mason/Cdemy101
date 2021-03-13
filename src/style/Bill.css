@@ -1,0 +1,57 @@
+.bill-container {
+  width: 25%;
+  padding: 50px 20px;
+}
+
+.bill-main h3 {
+  color: rgba(0, 0, 0, 0.5);
+  margin: 20px 0;
+}
+
+.bill-price {
+  display: block;
+  font-size: 2rem;
+}
+
+.checkout-btn {
+  margin: 20px 0;
+  width: 100%;
+  background-color: var(--emphasize-color);
+  color: #fff;
+  border: 0;
+  padding: 15px 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.coupon-select {
+  margin: 10px 0;
+  padding: 10px 5px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.checkout-btn:focus,
+.coupon-select:focus {
+  outline: none;
+}
+
+#selector {
+  padding-left: 10px;
+  font-size: 0.9rem;
+  width: 75%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+#apply-btn {
+  background-color: var(--emphasize-color);
+  color: #fff;
+  width: 25%;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+#apply-btn:hover,
+.checkout-btn:hover {
+  background-color: #ba1414;
+}

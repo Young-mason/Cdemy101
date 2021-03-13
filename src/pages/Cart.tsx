@@ -8,9 +8,8 @@ function Cart() {
   return (
     <>
       <div className="cart-header">
-        <h1>Shopping Cart</h1>
+        <h1>{cartItems.length} Courses in Shopping Cart</h1>
       </div>
-      <h2>{cartItems.length} Courses in Cart</h2>
       <div className="cart-container">
         <div className="cart-items">
           {cartItems.map((item) => {

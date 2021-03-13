@@ -1,5 +1,4 @@
 .cart-items {
-  margin: 20px;
   width: 60%;
 }
 
@@ -41,18 +40,19 @@
 
 .cart-item-price {
   margin: 0;
-  color: #eb5353;
+  color: var(--emphasize-color);
   font-size: 1.2rem;
 }
 
 .delete {
+  cursor: pointer;
   color: #1b6e81;
 }
 
 .coupon {
   padding: 5px 10px;
   border-radius: 30px;
-  background-color: #eb5353;
+  background-color: var(--emphasize-color);
   color: #fff;
   opacity: 0;
 }
