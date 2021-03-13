@@ -1,0 +1,28 @@
+/* Products page */
+
+.billboard img {
+  max-width: 100%;
+  width: 100vw;
+  height: auto;
+}
+
+h1 {
+  margin-left: 20px;
+}
+
+/* Cart page */
+
+.cart-header {
+  background-color: #514949;
+  height: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.cart-header h1 {
+  color: #fff;
+}
+
+h2 {
+  margin: 40px 20px;
+}

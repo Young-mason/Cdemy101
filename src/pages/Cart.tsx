@@ -1,7 +1,35 @@
-import React from "react";
+import { useCartState } from "../modules/CartContext";
+import Bill from "../components/Bill";
+import CartItems from "../components/CartItems";
 
 function Cart() {
-  return <h1>Cart</h1>;
+  const cartItems = useCartState();
+
+  return (
+    <>
+      <div className="cart-header">
+        <h1>Shopping Cart</h1>
+      </div>
+      <h2>{cartItems.length} Courses in Cart</h2>
+      <div className="cart-container">
+        <div className="cart-items">
+          {cartItems.map((item) => {
+            const { id, coverImage, title, price, availableCoupon } = item;
+            return (
+              <CartItems
+                key={id}
+                coverImage={coverImage}
+                title={title}
+                price={price}
+                availableCoupon={availableCoupon}
+              />
+            );
+          })}
+        </div>
+        <Bill />
+      </div>
+    </>
+  );
 }
 
 export default Cart;

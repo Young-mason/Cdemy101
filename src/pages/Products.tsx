@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 import CardList from "../components/CardList";
-import "../style/Products.css";
+import "../style/AllPages.css";
 
 function Products() {
   return (

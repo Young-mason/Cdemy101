@@ -32,7 +32,7 @@ function CardList() {
               title={title}
               coverImage={coverImage}
               price={/* 세 자리수 마다 콤마 찍기 */ `₩ ${pointer(price)}`}
-            ></Card>
+            />
           );
         })}
       </div>
@@ -41,6 +41,7 @@ function CardList() {
         itemsPerPage={itemsPerPage}
         totalItems={productItems.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </>
   );

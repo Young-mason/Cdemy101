@@ -14,7 +14,6 @@ type Item = {
 type CartState = Item[];
 
 // Generic을 사용하여 Context에서 관리할 값의 상태를 정해줌
-// undefined는 추후 Provider를 사용하지 않을 경우???
 const CartStateContext = createContext<CartState | undefined>(undefined);
 
 // 액션을 위한 타입 선언

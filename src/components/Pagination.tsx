@@ -1,7 +1,12 @@
 import { PaginationProps } from "../modules/interface";
 import "../style/Pagination.css";
 
-function Pagination({ itemsPerPage, totalItems, paginate }: PaginationProps) {
+function Pagination({
+  itemsPerPage,
+  totalItems,
+  paginate,
+  currentPage,
+}: PaginationProps) {
   const pageNumbers: Array<number> = [];
 
   for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
@@ -18,6 +23,7 @@ function Pagination({ itemsPerPage, totalItems, paginate }: PaginationProps) {
               paginate(num);
             }}
             className="page-link"
+            style={currentPage === num ? { color: "black" } : {}}
           >
             {num}
           </a>
