@@ -13,7 +13,7 @@ function Card({ item, title, coverImage, price }: CardProps) {
     if (!isInclude && cartItems.length < 3) {
       setAddable(true);
     }
-  }, []);
+  }, [cartItems, item.id]);
 
   return (
     <div className="card">

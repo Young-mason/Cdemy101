@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { productItems } from "../productItems";
-import { useCartState } from "../modules/CartContext";
 import Pagination from "./Pagination";
 import pointer from "../modules/pointer";
 import Card from "./Card";
 import "../style/CardList.css";
 
 function CardList() {
-  const cartItems = useCartState();
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(5);
   // 현재 페이지에 들어갈 상품데이터
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

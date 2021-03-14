@@ -37,6 +37,7 @@ function CartItems({
 
   const removeFromCart = () => {
     cartDispatch({ type: "REMOVE_FROM_CART", id });
+    paymentDispatch({ type: "DELETE_FROM_PAYMENT", id });
     alert("카트에서 제거하였습니다");
   };
 

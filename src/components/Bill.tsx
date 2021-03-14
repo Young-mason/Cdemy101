@@ -7,11 +7,10 @@ import getSum from "../modules/getSum";
 import "../style/Bill.css";
 
 function Bill({ coupon, setCoupon }: BillProps) {
+  const [totalPrice, setTotalPrice] = useState(0);
   const [messageOn, setMessageOn] = useState(false);
   const [select, setSelect] = useState("");
   const paymentList = usePaymentState();
-
-  const [totalPrice, setTotalPrice] = useState(0);
 
   /* 가격 계산기 */
   useEffect(() => {
@@ -31,20 +30,20 @@ function Bill({ coupon, setCoupon }: BillProps) {
 
       // ! 소수점 버림처리 필요
       if (type === "rate") {
-        let applyCoupon =
+        let couponAvailableSum =
           (getSum(couponAvailableItems) * (100 - discountRate)) / 100;
         let elseSum = getSum(others);
 
-        setTotalPrice(applyCoupon + elseSum);
+        setTotalPrice(couponAvailableSum + elseSum);
       }
       if (type === "amount") {
-        let applyCoupon = getSum(couponAvailableItems) - discountAmount;
+        let couponAvailableSum = getSum(couponAvailableItems) - discountAmount;
         let elseSum = getSum(others);
 
-        setTotalPrice(applyCoupon + elseSum);
+        setTotalPrice(couponAvailableSum + elseSum);
       }
     }
-  });
+  }, [coupon, paymentList]);
 
   useEffect(() => {
     if (coupon) {
