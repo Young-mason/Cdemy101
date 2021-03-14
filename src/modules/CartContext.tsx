@@ -1,8 +1,7 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
-import { productItems } from "../productItems";
 
 // 카트에 들어갈 아이템의 타입 선언
-type Item = {
+export type Item = {
   id: string;
   title: string;
   coverImage: string;
@@ -54,23 +53,6 @@ export function CartContextProvider({
         "https://cdn.class101.net/images/ec0f0c15-aeec-43a3-a0c9-b649b0999f0a",
       price: 320000,
       score: 300,
-    },
-    {
-      id: "ZXV8mCcvbpXKm5J5snUq",
-      title: "붓펜으로 그려낸 보통날, 보통의 글씨",
-      coverImage:
-        "https://cdn.class101.net/images/a363a069-5aaf-40cb-822e-a2cab585c37e",
-      price: 240000,
-      score: 350,
-    },
-    {
-      id: "tpP45lSwqf1X1yEEFqL4",
-      title: "수놓는 발바닥과 함께 하는 꽁냥꽁냥 고양이 자수",
-      coverImage:
-        "https://cdn.class101.net/images/e6b7bde6-b23d-447f-9cdf-3879caf7eb13",
-      price: 90000,
-      score: 120,
-      availableCoupon: false,
     },
   ]);
   return (
