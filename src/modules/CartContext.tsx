@@ -1,4 +1,5 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
+import { productItems } from "../productItems";
 
 // 카트에 들어갈 아이템의 타입 선언
 type Item = {
@@ -19,7 +20,10 @@ const CartStateContext = createContext<CartState | undefined>(undefined);
 // 액션을 위한 타입 선언
 type Action =
   | { type: "ADD_TO_CART"; item: Item }
-  | { type: "REMOVE_FROM_CART"; id: string };
+  | { type: "REMOVE_FROM_CART"; id: string }
+  | { type: "APPLY_RATE_COUPON"; rate: number }
+  | { type: "APPLY_AMOUNT_COUPON"; amount: number }
+  | { type: "DELETE_COUPON" };
 
 // 디스패치 함수의 타입 설정
 type CartDispatch = Dispatch<Action>;
@@ -34,6 +38,30 @@ function cartReducer(state: CartState, action: Action) {
       return [...state, action.item];
     case "REMOVE_FROM_CART":
       return state.filter((el) => el.id !== action.id);
+    case "APPLY_RATE_COUPON":
+      return state.map((el) => {
+        const discount = (el.price * (100 - action.rate)) / 100;
+        //쿠폰 적용 가능여부 확인 후 가능할 경우만 할인 적용
+        return el.availableCoupon !== false ? { ...el, price: discount } : el;
+      });
+    case "APPLY_AMOUNT_COUPON":
+      return state.map((el) => {
+        //쿠폰 적용 가능여부 확인 후 가능할 경우만 할인 적용
+        return el.availableCoupon !== false
+          ? { ...el, price: el.price - action.amount }
+          : el;
+      });
+    case "DELETE_COUPON":
+      return state.map((el) => {
+        let price = 0;
+        productItems.forEach((item) => {
+          if (el.id === item.id) {
+            price = item.price;
+          }
+        });
+        return { ...el, price };
+      });
+
     default:
       throw new Error("unhandled action");
   }

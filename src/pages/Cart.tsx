@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { useCartState } from "../modules/CartContext";
 import Bill from "../components/Bill";
 import CartItems from "../components/CartItems";
 
 function Cart() {
+  const [coupon, setCoupon] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
   const cartItems = useCartState();
 
   return (
@@ -21,11 +24,18 @@ function Cart() {
                 title={title}
                 price={price}
                 availableCoupon={availableCoupon}
+                coupon={coupon}
+                couponApplied={couponApplied}
               />
             );
           })}
         </div>
-        <Bill />
+        <Bill
+          coupon={coupon}
+          setCoupon={setCoupon}
+          couponApplied={couponApplied}
+          setCouponApplied={setCouponApplied}
+        />
       </div>
     </>
   );

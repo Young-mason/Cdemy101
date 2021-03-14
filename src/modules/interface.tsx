@@ -16,4 +16,13 @@ export interface CartItemsProps {
   coverImage: string;
   price: number;
   availableCoupon?: boolean;
+  coupon: string;
+  couponApplied: boolean;
+}
+
+export interface BillProps {
+  coupon: string;
+  setCoupon: (coupon: string) => void;
+  couponApplied: boolean;
+  setCouponApplied: (boolean: boolean) => void;
 }
