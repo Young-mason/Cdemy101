@@ -6,15 +6,19 @@ import { useHistory } from "react-router-dom";
 import "../style/Modal.css";
 
 function Modal({ item, addable, setModal }: ModalProps) {
-  const modalContainer = useRef<HTMLDivElement>(null);
+  const modalContainer = useRef<HTMLDivElement | null>(null);
   const cartItems = useCartState();
   const dispatch = useCartDispatch();
   const history = useHistory();
 
+  /* 
+   담기 버튼을 누르면 상품을 장바구니에 담습니다 
+   장바구니에 3개가 담겨있다면, 알림을 띄우고 장바구니 페이지로 이동시킵니다 
+  */
   const addToCart = () => {
     if (cartItems.length < 3) {
       dispatch({ type: "ADD_TO_CART", item });
-      alert("카트에 담았습니다");
+      alert("상품을 장바구니에 담았습니다");
       setModal(false);
     } else {
       alert("최대 3개 까지 담을 수 있습니다.");
@@ -23,9 +27,10 @@ function Modal({ item, addable, setModal }: ModalProps) {
     }
   };
 
+  /* 빼기 버튼을 누르면 상품을 장바구니에서 삭제합니다 */
   const removeFromCart = () => {
     dispatch({ type: "REMOVE_FROM_CART", id: item.id });
-    alert("카트에서 삭제하였습니다");
+    alert("상품을 장바구니에서 삭제하였습니다");
     setModal(false);
   };
 

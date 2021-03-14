@@ -18,7 +18,7 @@ function CartItems({
   const paymentDispatch = usePaymentDispatch();
   const cartDispatch = useCartDispatch();
 
-  /* 체크된 상품의 가격을 최종 가격에 등록합니다*/
+  /* 체크 박스 상태에 따라 가격을 계산 목록에 추가하거나 제거합니다 */
   useEffect(() => {
     const item = {
       id,
@@ -35,6 +35,7 @@ function CartItems({
     }
   }, [checked]);
 
+  /* 삭제하기를 누르면 장바구니에서 상품을 제거합니다 */
   const removeFromCart = () => {
     cartDispatch({ type: "REMOVE_FROM_CART", id });
     paymentDispatch({ type: "DELETE_FROM_PAYMENT", id });
@@ -86,8 +87,8 @@ function CartItems({
             onClick={() => {
               if (checked === true) {
                 alert("수량을 변경하려면 등록을 해제해주세요");
-              } else if (quantity >= 5) {
-                alert("5개 까지만 구매하실 수 있습니다");
+              } else if (quantity >= 10) {
+                alert("10개 까지만 구매하실 수 있습니다");
               } else {
                 setQuantity(quantity + 1);
               }

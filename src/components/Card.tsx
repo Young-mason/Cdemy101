@@ -8,6 +8,7 @@ function Card({ item, title, coverImage, price }: CardProps) {
   const [addable, setAddable] = useState(false);
   const cartItems = useCartState();
 
+  /* 아이템이 Cart에 없는 경우, 모달에서 추가 버튼이 활성화되도록 합니다*/
   useEffect(() => {
     const isInclude = cartItems.find((el) => el.id === item.id);
     if (!isInclude) {

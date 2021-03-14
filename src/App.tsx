@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <CartContextProvider>
-        <Header></Header>
+        <Header />
         <Switch>
           <Route exact path="/">
             <Redirect to="/products" />

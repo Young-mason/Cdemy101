@@ -1,4 +1,4 @@
-// 세 자리수 마다 콤마 찍기
+// 세 자리수 마다 콤마를 찍어줍니다
 const pointer = (num: number): string => {
   let result = "";
   let stringify = num.toString();

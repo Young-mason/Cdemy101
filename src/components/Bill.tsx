@@ -12,15 +12,15 @@ function Bill({ coupon, setCoupon }: BillProps) {
   const [select, setSelect] = useState("");
   const paymentList = usePaymentState();
 
-  /* 가격 계산기 */
+  /* 선택된 상품들의 가격을 계산합니다 */
   useEffect(() => {
-    // 쿠폰 없는 경우
+    // 쿠폰 적용이 안된 경우 결제목록에 있는 상품 가격을 모두 더합니다
     if (!coupon) {
       let sum = getSum(paymentList);
-      setTotalPrice(sum);
+      setTotalPrice(Math.floor(sum));
     }
 
-    //쿠폰 있는경우
+    // 쿠폰이 적용된 경우 쿠폰 적용 가능한 상품과 불가능한 상품을 구분하여 계산합니다
     else {
       const { type, discountRate, discountAmount } = JSON.parse(coupon);
       const couponAvailableItems = paymentList.filter(
@@ -28,23 +28,23 @@ function Bill({ coupon, setCoupon }: BillProps) {
       );
       const others = paymentList.filter((el) => el.availableCoupon === false);
 
-      // ! 소수점 버림처리 필요
       if (type === "rate") {
         let couponAvailableSum =
           (getSum(couponAvailableItems) * (100 - discountRate)) / 100;
         let elseSum = getSum(others);
 
-        setTotalPrice(couponAvailableSum + elseSum);
+        setTotalPrice(Math.floor(couponAvailableSum + elseSum));
       }
       if (type === "amount") {
         let couponAvailableSum = getSum(couponAvailableItems) - discountAmount;
         let elseSum = getSum(others);
 
-        setTotalPrice(couponAvailableSum + elseSum);
+        setTotalPrice(Math.floor(couponAvailableSum + elseSum));
       }
     }
   }, [coupon, paymentList]);
 
+  /* 쿠폰 적용 버튼을 누르면, 메세지가 3초간 출력되고 사라집니다 */
   useEffect(() => {
     if (coupon) {
       setMessageOn(true);
@@ -53,6 +53,13 @@ function Bill({ coupon, setCoupon }: BillProps) {
       }, 3000);
     }
   }, [coupon]);
+
+  /* 선택한 쿠폰을 State에 임시 저장하고, 현재 메세지가 있다면 삭제합니다. */
+  const onChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelect(e.target.value);
+    setMessageOn(false);
+  };
+
   return (
     <div className="bill-container">
       <div className="bill-main">
@@ -65,11 +72,7 @@ function Bill({ coupon, setCoupon }: BillProps) {
           name="coupon"
           id="selector"
           className="coupon-select"
-          // 선택한 쿠폰을 State에 저장하고, 현재 메세지가 있다면 삭제합니다.
-          onChange={(e) => {
-            setSelect(e.target.value);
-            setMessageOn(false);
-          }}
+          onChange={onChangeHandler}
         >
           <option value="">쿠폰을 선택해주세요</option>
           {coupons.map((coupon) => (
@@ -82,7 +85,7 @@ function Bill({ coupon, setCoupon }: BillProps) {
           id="apply-btn"
           className="coupon-select"
           onClick={() => {
-            setCoupon(select);
+            setCoupon(select); /* 쿠폰을 적용시킵니다 */
           }}
         >
           Apply

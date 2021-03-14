@@ -1,6 +1,6 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
 
-// 카트에 들어갈 아이템의 타입 선언
+/* 장바구니에 들어갈 아이템의 타입을 선언합니다 */
 export type Item = {
   id: string;
   title: string;
@@ -10,24 +10,24 @@ export type Item = {
   availableCoupon?: boolean;
 };
 
-// 카트 타입 선언
+/* 장바구니 목록의 타입을 선언합니다 */
 type CartState = Item[];
 
-// Generic을 사용하여 Context에서 관리할 값의 상태를 정해줌
+/* Generic을 사용하여 Context에서 관리할 값의 상태를 지정해줍니다 */
 const CartStateContext = createContext<CartState | undefined>(undefined);
 
-// 액션을 위한 타입 선언
+/* 액션 타입을 지정합니다 */
 type Action =
   | { type: "ADD_TO_CART"; item: Item }
   | { type: "REMOVE_FROM_CART"; id: string };
 
-// 디스패치 함수의 타입 설정
+/* 디스패치 함수의 타입을 설정합니다 */
 type CartDispatch = Dispatch<Action>;
 
-// 추후 컴포넌트에서 액션을 디스패치 할 때 액션들에 대한 타입을 검사 할 수 있음
+/* 컨텍스트를 만듭니다. 추후 컴포넌트에서 액션을 디스패치 할 때 액션들에 대한 타입을 검사 할 수 있습니다 */
 const CartDispatchContext = createContext<CartDispatch | undefined>(undefined);
 
-// 리듀서
+/* 리듀서 */
 function cartReducer(state: CartState, action: Action) {
   switch (action.type) {
     case "ADD_TO_CART":
@@ -39,7 +39,7 @@ function cartReducer(state: CartState, action: Action) {
   }
 }
 
-//CartStateContext 와 CartDispatchContext의 Provider를 함께 사용하는 CartProvider만들기
+/* CartStateContext 와 CartDispatchContext의 Provider를 함께 사용하는 CartProvider를 만듭니다 */
 export function CartContextProvider({
   children,
 }: {
@@ -64,7 +64,11 @@ export function CartContextProvider({
   );
 }
 
-// cart의 타입은 cartState | undefined일 수도 있음. 따라서 해당 배열을 사용하기 전, 유효한지 체크 필요  --> customHook 만들기
+/* 
+cart의 타입은 cartState | undefined일 수도 있습니다. 
+따라서 해당 배열을 사용하기 전, 유효한지 체크 필요하므로
+customHook를 만듭니다 
+*/
 export function useCartState() {
   const state = useContext(CartStateContext);
   if (!state) throw new Error("CartProvider not found");

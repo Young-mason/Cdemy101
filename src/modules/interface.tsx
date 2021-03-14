@@ -1,6 +1,6 @@
-import { VoidExpression } from "typescript";
 import { Item } from "./CartContext";
 
+/* 모든 인터페이스를 하나의 파일에서 export 시킵니다*/
 export interface CardProps {
   title: string;
   coverImage: string;
