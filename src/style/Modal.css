@@ -46,6 +46,10 @@
   cursor: pointer;
 }
 
+.modal-btn:hover {
+  background-color: #d4d4d4;
+}
+
 #exit-btn {
   position: absolute;
   top: 10px;

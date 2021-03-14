@@ -29,6 +29,7 @@ function CardList() {
           return (
             <Card
               key={id}
+              item={item}
               title={title}
               coverImage={coverImage}
               price={`₩ ${pointer(price)}`} /* 세 자리수 마다 콤마 찍기 */

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CartItemsProps } from "../modules/interface";
-import { usePaymentDispatch, usePaymentState } from "../modules/PaymentContext";
+import { usePaymentDispatch } from "../modules/PaymentContext";
+import { useCartDispatch } from "../modules/CartContext";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import pointer from "../modules/pointer";
 import "../style/CartItems.css";
@@ -14,7 +15,8 @@ function CartItems({
 }: CartItemsProps) {
   const [quantity, setQuantity] = useState(1);
   const [checked, setChecked] = useState(false);
-  const dispatch = usePaymentDispatch();
+  const paymentDispatch = usePaymentDispatch();
+  const cartDispatch = useCartDispatch();
 
   /* 체크된 상품의 가격을 최종 가격에 등록합니다*/
   useEffect(() => {
@@ -26,12 +28,17 @@ function CartItems({
       availableCoupon,
     };
     if (checked === true) {
-      dispatch({ type: "ADD_TO_PAYMENT", item });
+      paymentDispatch({ type: "ADD_TO_PAYMENT", item });
     }
     if (checked === false) {
-      dispatch({ type: "DELETE_FROM_PAYMENT", id });
+      paymentDispatch({ type: "DELETE_FROM_PAYMENT", id });
     }
   }, [checked]);
+
+  const removeFromCart = () => {
+    cartDispatch({ type: "REMOVE_FROM_CART", id });
+    alert("카트에서 제거하였습니다");
+  };
 
   return (
     <div
@@ -46,7 +53,9 @@ function CartItems({
         }</h5>
       </div>
       <div className="cart-btns">
-        <a className="delete">삭제하기</a>
+        <a className="delete" onClick={removeFromCart}>
+          삭제하기
+        </a>
         <div
           className="coupon"
           style={availableCoupon !== false ? { opacity: 1 } : {}}
@@ -54,6 +63,7 @@ function CartItems({
           쿠폰 적용 가능
         </div>
         <div className="quantity">
+          {/* 수량 마이너스 버튼 */}
           <button
             id="minus"
             className="quantity-btn"
@@ -68,6 +78,7 @@ function CartItems({
             <FiMinus />
           </button>
           <span>수량: {quantity}</span>
+          {/* 수량 플러스 버튼 */}
           <button
             id="plus"
             className="quantity-btn"
