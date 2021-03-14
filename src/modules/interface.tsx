@@ -12,6 +12,7 @@ export interface PaginationProps {
 }
 
 export interface CartItemsProps {
+  id: string;
   title: string;
   coverImage: string;
   price: number;

@@ -1,5 +1,6 @@
 import { coupons } from "../productItems";
 import { useCartDispatch, useCartState } from "../modules/CartContext";
+import { usePaymentDispatch, usePaymentState } from "../modules/PaymentContext";
 import { useState, useEffect } from "react";
 import { BillProps } from "../modules/interface";
 import pointer from "../modules/pointer";
@@ -10,11 +11,16 @@ function Bill({
   setCoupon,
   couponApplied,
   setCouponApplied,
-  totalPrice,
 }: BillProps) {
   const [messageOn, setMessageOn] = useState(false);
   const dispatch = useCartDispatch();
-  const cartItems = useCartState();
+  const paymentList = usePaymentState();
+
+  // 쿠폰이 적용 안되어있을 경우
+  const totalPrice = paymentList.reduce((acc, cur) => {
+    let { price, quantity } = cur;
+    return acc + price * quantity;
+  }, 0);
 
   /* 쿠폰 값이 변화하면 적용상태를 해제시킨다. */
   useEffect(() => {
