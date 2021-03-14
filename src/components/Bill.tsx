@@ -1,46 +1,59 @@
 import { coupons } from "../productItems";
-import { useCartDispatch, useCartState } from "../modules/CartContext";
-import { usePaymentDispatch, usePaymentState } from "../modules/PaymentContext";
+import { usePaymentState } from "../modules/PaymentContext";
 import { useState, useEffect } from "react";
 import { BillProps } from "../modules/interface";
 import pointer from "../modules/pointer";
+import getSum from "../modules/getSum";
 import "../style/Bill.css";
 
-function Bill({
-  coupon,
-  setCoupon,
-  couponApplied,
-  setCouponApplied,
-}: BillProps) {
+function Bill({ coupon, setCoupon }: BillProps) {
   const [messageOn, setMessageOn] = useState(false);
-  const dispatch = useCartDispatch();
+  const [select, setSelect] = useState("");
   const paymentList = usePaymentState();
 
-  // 쿠폰이 적용 안되어있을 경우
-  const totalPrice = paymentList.reduce((acc, cur) => {
-    let { price, quantity } = cur;
-    return acc + price * quantity;
-  }, 0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  /* 쿠폰 값이 변화하면 적용상태를 해제시킨다. */
+  /* 가격 계산기 */
   useEffect(() => {
-    setCouponApplied(false);
-    // dispatch({ type: "DELETE_COUPON" });
+    // 쿠폰 없는 경우
+    if (!coupon) {
+      let sum = getSum(paymentList);
+      setTotalPrice(sum);
+    }
+
+    //쿠폰 있는경우
+    else {
+      const { type, discountRate, discountAmount } = JSON.parse(coupon);
+      const couponAvailableItems = paymentList.filter(
+        (el) => el.availableCoupon === undefined
+      );
+      const others = paymentList.filter((el) => el.availableCoupon === false);
+
+      // ! 소수점 버림처리 필요
+      if (type === "rate") {
+        let applyCoupon =
+          (getSum(couponAvailableItems) * (100 - discountRate)) / 100;
+        let elseSum = getSum(others);
+
+        setTotalPrice(applyCoupon + elseSum);
+      }
+      if (type === "amount") {
+        let applyCoupon = getSum(couponAvailableItems) - discountAmount;
+        let elseSum = getSum(others);
+
+        setTotalPrice(applyCoupon + elseSum);
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (coupon) {
+      setMessageOn(true);
+      setTimeout(() => {
+        setMessageOn(false);
+      }, 3000);
+    }
   }, [coupon]);
-
-  const applyCoupon = () => {
-    // 적용한 쿠폰을 현재 카트 리스트에 적용시킨다 (redux)
-    // !전체 금액에 대해 적용하도록 수정할것
-    const { type, discountRate, discountAmount } = JSON.parse(coupon);
-    if (type === "rate") {
-      dispatch({ type: "APPLY_RATE_COUPON", rate: discountRate });
-    }
-    if (type === "amount") {
-      dispatch({ type: "APPLY_AMOUNT_COUPON", amount: discountAmount });
-    }
-  };
-
-  console.log(couponApplied);
   return (
     <div className="bill-container">
       <div className="bill-main">
@@ -55,7 +68,7 @@ function Bill({
           className="coupon-select"
           // 선택한 쿠폰을 State에 저장하고, 현재 메세지가 있다면 삭제합니다.
           onChange={(e) => {
-            setCoupon(e.target.value);
+            setSelect(e.target.value);
             setMessageOn(false);
           }}
         >
@@ -70,18 +83,7 @@ function Bill({
           id="apply-btn"
           className="coupon-select"
           onClick={() => {
-            if (couponApplied) {
-              dispatch({ type: "DELETE_COUPON" });
-            }
-            // 선택한 쿠폰을 적용하고 3초간 메세지를 띄웁니다.
-            applyCoupon();
-            setCouponApplied(true);
-            if (coupon.length !== 0) {
-              setMessageOn(true);
-              setTimeout(() => {
-                setMessageOn(false);
-              }, 3000);
-            }
+            setCoupon(select);
           }}
         >
           Apply

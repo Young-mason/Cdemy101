@@ -11,24 +11,20 @@ function CartItems({
   title,
   price,
   availableCoupon,
-  totalPrice,
-  setTotalPrice,
 }: CartItemsProps) {
   const [quantity, setQuantity] = useState(1);
   const [checked, setChecked] = useState(false);
   const dispatch = usePaymentDispatch();
-  const paymentList = usePaymentState();
 
-  console.log(paymentList);
   /* 체크된 상품의 가격을 최종 가격에 등록합니다*/
-  const item = {
-    id,
-    title,
-    price,
-    quantity,
-    availableCoupon,
-  };
   useEffect(() => {
+    const item = {
+      id,
+      title,
+      price,
+      quantity,
+      availableCoupon,
+    };
     if (checked === true) {
       dispatch({ type: "ADD_TO_PAYMENT", item });
     }

@@ -6,8 +6,6 @@ import CartItems from "../components/CartItems";
 
 function Cart() {
   const [coupon, setCoupon] = useState("");
-  const [couponApplied, setCouponApplied] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
   const cartItems = useCartState();
 
   return (
@@ -28,19 +26,11 @@ function Cart() {
                   title={title}
                   price={price}
                   availableCoupon={availableCoupon}
-                  totalPrice={totalPrice}
-                  setTotalPrice={setTotalPrice}
                 />
               );
             })}
           </div>
-          <Bill
-            coupon={coupon}
-            setCoupon={setCoupon}
-            couponApplied={couponApplied}
-            setCouponApplied={setCouponApplied}
-            totalPrice={totalPrice}
-          />
+          <Bill coupon={coupon} setCoupon={setCoupon} />
         </div>
       </PaymentContextProvider>
     </>

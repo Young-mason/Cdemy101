@@ -1,5 +1,4 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
-import { productItems } from "../productItems";
 
 // 결제목록에 들어갈 아이템의 타입 선언
 type Item = {
@@ -10,15 +9,13 @@ type Item = {
   availableCoupon?: boolean;
 };
 
-type PaymentState = Item[];
+export type PaymentState = Item[];
 
 const PaymentStateContext = createContext<PaymentState | undefined>(undefined);
 
 type Action =
   | { type: "ADD_TO_PAYMENT"; item: Item }
-  | { type: "DELETE_FROM_PAYMENT"; id: string }
-  | { type: "APPLY_RATE_COUPON"; rate: number }
-  | { type: "APPLY_AMOUNT_COUPON"; rate: number };
+  | { type: "DELETE_FROM_PAYMENT"; id: string };
 
 type PaymentDispatch = Dispatch<Action>;
 
@@ -32,10 +29,8 @@ function paymentReducer(state: PaymentState, action: Action) {
       return [...state, action.item];
     case "DELETE_FROM_PAYMENT":
       return state.filter((el) => el.id !== action.id);
-    case "APPLY_RATE_COUPON":
-      return state;
-    case "APPLY_AMOUNT_COUPON":
-      return state;
+    default:
+      throw new Error("unhandled action");
   }
 }
 
