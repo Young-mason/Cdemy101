@@ -20,6 +20,7 @@ function Cart() {
             return (
               <CartItems
                 key={id}
+                id={id}
                 coverImage={coverImage}
                 title={title}
                 price={price}

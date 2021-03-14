@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { useCartDispatch } from "../modules/CartContext";
 import { CartItemsProps } from "../modules/interface";
+import { FiPlus, FiMinus } from "react-icons/fi";
 import pointer from "../modules/pointer";
 import "../style/CartItems.css";
 
 function CartItems({
+  id,
   coverImage,
   title,
   price,
@@ -11,19 +14,21 @@ function CartItems({
   coupon,
   couponApplied,
 }: CartItemsProps) {
+  const [quantity, setQuantity] = useState(1);
+  // const [multipliedPrice, setMultipliedPrice] = useState(price);
   const [couponBadge, setCouponBadge] = useState("");
+  const dispatch = useCartDispatch();
   useEffect(() => {
-    console.log(coupon);
     if (coupon.length > 0) {
       const couponData = JSON.parse(coupon);
       setCouponBadge(couponData.title.split(" ").slice(0, 2).join(" "));
     }
   }, [couponApplied]);
 
-  // const couponBadge: string =
-  //   coupon.length > 0
-  //     ? JSON.parse(coupon).title.split(" ").slice(0, 2).join(" ")
-  //     : "";
+  useEffect(() => {
+    // dispatch({ type: "DELETE_COUPON" });
+    dispatch({ type: "MULTIPLY_PRICE", id, quantity });
+  }, [quantity]);
 
   return (
     <div className="cart-item">
@@ -43,6 +48,33 @@ function CartItems({
           }
         >
           {couponBadge}
+        </div>
+        <div className="quantity">
+          <button
+            id="minus"
+            className="quantity-btn"
+            onClick={() => {
+              if (quantity > 1) {
+                setQuantity(quantity - 1);
+              }
+            }}
+          >
+            <FiMinus />
+          </button>
+          <span>수량: {quantity}</span>
+          <button
+            id="plus"
+            className="quantity-btn"
+            onClick={() => {
+              if (quantity >= 5) {
+                alert("5개 까지만 구매하실 수 있습니다");
+              } else {
+                setQuantity(quantity + 1);
+              }
+            }}
+          >
+            <FiPlus />
+          </button>
         </div>
       </div>
     </div>

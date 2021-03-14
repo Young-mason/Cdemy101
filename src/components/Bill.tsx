@@ -15,7 +15,7 @@ function Bill({
 
   useEffect(() => {
     setCouponApplied(false);
-    dispatch({ type: "DELETE_COUPON" });
+    // dispatch({ type: "DELETE_COUPON" });
   }, [coupon]);
 
   const applyCoupon = () => {

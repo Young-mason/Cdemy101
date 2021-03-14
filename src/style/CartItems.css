@@ -27,9 +27,9 @@
 .cart-item-body {
   margin-left: 10px;
   width: 50%;
+  position: relative;
 }
 .cart-btns {
-  position: absolute;
   right: 5%;
   align-items: center;
 }
@@ -56,4 +56,27 @@
   color: #fff;
   opacity: 0;
   font-size: 0.7rem;
+}
+
+/* ------------- quantity -------------*/
+
+.quantity {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+}
+
+.quantity-btn {
+  cursor: pointer;
+  border: 0;
+  color: #1b6e81;
+  background-color: #fff;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
+.quantity-btn:focus {
+  outline: none;
 }
