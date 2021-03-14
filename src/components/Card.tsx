@@ -10,7 +10,7 @@ function Card({ item, title, coverImage, price }: CardProps) {
 
   useEffect(() => {
     const isInclude = cartItems.find((el) => el.id === item.id);
-    if (!isInclude && cartItems.length < 3) {
+    if (!isInclude) {
       setAddable(true);
     }
   }, [cartItems, item.id]);

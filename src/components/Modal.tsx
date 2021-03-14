@@ -1,17 +1,26 @@
 import { useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { ModalProps } from "../modules/interface";
-import { useCartDispatch } from "../modules/CartContext";
+import { useCartDispatch, useCartState } from "../modules/CartContext";
+import { useHistory } from "react-router-dom";
 import "../style/Modal.css";
 
 function Modal({ item, addable, setModal }: ModalProps) {
   const modalContainer = useRef<HTMLDivElement>(null);
+  const cartItems = useCartState();
   const dispatch = useCartDispatch();
+  const history = useHistory();
 
   const addToCart = () => {
-    dispatch({ type: "ADD_TO_CART", item });
-    alert("카트에 담았습니다");
-    setModal(false);
+    if (cartItems.length < 3) {
+      dispatch({ type: "ADD_TO_CART", item });
+      alert("카트에 담았습니다");
+      setModal(false);
+    } else {
+      alert("최대 3개 까지 담을 수 있습니다.");
+      setModal(false);
+      history.push("/cart");
+    }
   };
 
   const removeFromCart = () => {
@@ -35,9 +44,8 @@ function Modal({ item, addable, setModal }: ModalProps) {
           <h2>🛒 장바구니</h2>
           <p>
             {addable
-              ? `장바구니에 공간이 남아있습니다.
-            담으시겠어요?`
-              : `이미 장바구니에 있습니다. 빼시겠어요?`}
+              ? `상품을 담으시겠어요?`
+              : `상품이 장바구니에 있습니다. 빼시겠어요?`}
           </p>
         </div>
         <div className="modal-btns">
