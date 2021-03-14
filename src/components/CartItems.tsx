@@ -1,28 +1,35 @@
 import { useState, useEffect } from "react";
 import { CartItemsProps } from "../modules/interface";
+import { usePaymentDispatch, usePaymentState } from "../modules/PaymentContext";
 import { FiPlus, FiMinus } from "react-icons/fi";
 import pointer from "../modules/pointer";
 import "../style/CartItems.css";
 
 function CartItems({
+  id,
   coverImage,
   title,
   price,
   availableCoupon,
-  totalPrice,
-  setTotalPrice,
 }: CartItemsProps) {
   const [quantity, setQuantity] = useState(1);
   const [checked, setChecked] = useState(false);
+  const dispatch = usePaymentDispatch();
 
   /* 체크된 상품의 가격을 최종 가격에 등록합니다*/
   useEffect(() => {
-    if (checked === false && totalPrice !== 0) {
-      setTotalPrice(totalPrice - price * quantity);
-    }
-
+    const item = {
+      id,
+      title,
+      price,
+      quantity,
+      availableCoupon,
+    };
     if (checked === true) {
-      setTotalPrice(totalPrice + price * quantity);
+      dispatch({ type: "ADD_TO_PAYMENT", item });
+    }
+    if (checked === false) {
+      dispatch({ type: "DELETE_FROM_PAYMENT", id });
     }
   }, [checked]);
 
