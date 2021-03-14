@@ -5,6 +5,7 @@
 }
 
 .card {
+  position: relative;
   margin: 0 auto;
   max-width: 250px;
 }
@@ -12,4 +13,26 @@
 .card-img {
   width: 100%;
   height: 150px;
+}
+
+.cart-handler {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  background-color: var(--nav-color);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.cart-handler:focus {
+  outline: none;
+}
+
+.cart-handler:hover {
+  background-color: #d4d4d4;
 }

@@ -1,5 +1,4 @@
 import React, { useReducer, useContext, createContext, Dispatch } from "react";
-import { productItems } from "../productItems";
 
 // 카트에 들어갈 아이템의 타입 선언
 type Item = {

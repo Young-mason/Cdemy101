@@ -23,3 +23,7 @@ export interface BillProps {
   coupon: string;
   setCoupon: (coupon: string) => void;
 }
+
+export interface ModalProps {
+  setModal: (boolean: boolean) => void;
+}

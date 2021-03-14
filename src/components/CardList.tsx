@@ -31,7 +31,7 @@ function CardList() {
               key={id}
               title={title}
               coverImage={coverImage}
-              price={/* 세 자리수 마다 콤마 찍기 */ `₩ ${pointer(price)}`}
+              price={`₩ ${pointer(price)}`} /* 세 자리수 마다 콤마 찍기 */
             />
           );
         })}
