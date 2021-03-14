@@ -6,6 +6,7 @@ import CartItems from "../components/CartItems";
 function Cart() {
   const [coupon, setCoupon] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
   const cartItems = useCartState();
 
   return (
@@ -20,13 +21,12 @@ function Cart() {
             return (
               <CartItems
                 key={id}
-                id={id}
                 coverImage={coverImage}
                 title={title}
                 price={price}
                 availableCoupon={availableCoupon}
-                coupon={coupon}
-                couponApplied={couponApplied}
+                totalPrice={totalPrice}
+                setTotalPrice={setTotalPrice}
               />
             );
           })}
@@ -36,6 +36,7 @@ function Cart() {
           setCoupon={setCoupon}
           couponApplied={couponApplied}
           setCouponApplied={setCouponApplied}
+          totalPrice={totalPrice}
         />
       </div>
     </>

@@ -1,7 +1,8 @@
 import { coupons } from "../productItems";
-import { useCartDispatch } from "../modules/CartContext";
+import { useCartDispatch, useCartState } from "../modules/CartContext";
 import { useState, useEffect } from "react";
 import { BillProps } from "../modules/interface";
+import pointer from "../modules/pointer";
 import "../style/Bill.css";
 
 function Bill({
@@ -9,10 +10,13 @@ function Bill({
   setCoupon,
   couponApplied,
   setCouponApplied,
+  totalPrice,
 }: BillProps) {
   const [messageOn, setMessageOn] = useState(false);
   const dispatch = useCartDispatch();
+  const cartItems = useCartState();
 
+  /* 쿠폰 값이 변화하면 적용상태를 해제시킨다. */
   useEffect(() => {
     setCouponApplied(false);
     // dispatch({ type: "DELETE_COUPON" });
@@ -20,6 +24,7 @@ function Bill({
 
   const applyCoupon = () => {
     // 적용한 쿠폰을 현재 카트 리스트에 적용시킨다 (redux)
+    // !전체 금액에 대해 적용하도록 수정할것
     const { type, discountRate, discountAmount } = JSON.parse(coupon);
     if (type === "rate") {
       dispatch({ type: "APPLY_RATE_COUPON", rate: discountRate });
@@ -27,10 +32,6 @@ function Bill({
     if (type === "amount") {
       dispatch({ type: "APPLY_AMOUNT_COUPON", amount: discountAmount });
     }
-
-    // 버튼을 띄운다 (opacity => 1)
-
-    // 카트 리스트에서 availableCoupon이 false인 곳에는 적용시키지 않는다
   };
 
   console.log(couponApplied);
@@ -38,7 +39,7 @@ function Bill({
     <div className="bill-container">
       <div className="bill-main">
         <h3>Total : </h3>
-        <span className="bill-price">₩ 504,000</span>
+        <span className="bill-price">{`₩ ${pointer(totalPrice)}`}</span>
         <button className="checkout-btn">checkout</button>
       </div>
       <div className="bill-coupon">

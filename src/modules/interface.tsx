@@ -12,13 +12,12 @@ export interface PaginationProps {
 }
 
 export interface CartItemsProps {
-  id: string;
   title: string;
   coverImage: string;
   price: number;
   availableCoupon?: boolean;
-  coupon: string;
-  couponApplied: boolean;
+  totalPrice: number;
+  setTotalPrice: (price: number) => void;
 }
 
 export interface BillProps {
@@ -26,4 +25,5 @@ export interface BillProps {
   setCoupon: (coupon: string) => void;
   couponApplied: boolean;
   setCouponApplied: (boolean: boolean) => void;
+  totalPrice: number;
 }

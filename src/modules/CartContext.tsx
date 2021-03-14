@@ -23,8 +23,7 @@ type Action =
   | { type: "REMOVE_FROM_CART"; id: string }
   | { type: "APPLY_RATE_COUPON"; rate: number }
   | { type: "APPLY_AMOUNT_COUPON"; amount: number }
-  | { type: "DELETE_COUPON" }
-  | { type: "MULTIPLY_PRICE"; id: string; quantity: number };
+  | { type: "DELETE_COUPON" };
 
 // 디스패치 함수의 타입 설정
 type CartDispatch = Dispatch<Action>;
@@ -62,17 +61,6 @@ function cartReducer(state: CartState, action: Action) {
         });
         return { ...el, price };
       });
-    case "MULTIPLY_PRICE":
-      return state.map((el) => {
-        if (el.id === action.id) {
-          const original = productItems.find((item) => el.id === item.id);
-          if (original) {
-            el.price = original.price * action.quantity;
-          }
-        }
-        return el;
-      });
-
     default:
       throw new Error("unhandled action");
   }
