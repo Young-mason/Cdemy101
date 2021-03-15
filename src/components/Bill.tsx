@@ -85,7 +85,11 @@ function Bill({ coupon, setCoupon }: BillProps) {
           id="apply-btn"
           className="coupon-select"
           onClick={() => {
-            setCoupon(select); /* 쿠폰을 적용시킵니다 */
+            if (paymentList.length === 0) {
+              alert("먼저 상품을 선택해주세요");
+            } else {
+              setCoupon(select); /* 쿠폰을 적용시킵니다 */
+            }
           }}
         >
           Apply

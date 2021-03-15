@@ -11,7 +11,7 @@ export interface CardProps {
 export interface PaginationProps {
   itemsPerPage: number;
   totalItems: number;
-  paginate: (pageNumber: number) => void;
+  paginate: (pageNumber: number, direction: string) => void;
   currentPage: number;
 }
 

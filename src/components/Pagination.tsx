@@ -1,4 +1,5 @@
 import { PaginationProps } from "../modules/interface";
+import { GrNext, GrPrevious, GrPrint } from "react-icons/gr";
 import "../style/Pagination.css";
 
 function Pagination({
@@ -16,13 +17,28 @@ function Pagination({
 
   return (
     <div className="pages">
+      <button
+        className="page-btn"
+        onClick={() => {
+          if (currentPage > 1) {
+            paginate(currentPage - 1, "right");
+          }
+        }}
+      >
+        <GrPrevious />
+      </button>
       {/* 페이지 목록을 출력해줍니다 */}
       {pageNumbers.map((num: number) => (
         <li key={num} className="page-item">
           <a
             onClick={(e) => {
               e.preventDefault();
-              paginate(num);
+              if (num > currentPage) {
+                paginate(num, "left");
+              }
+              if (num < currentPage) {
+                paginate(num, "right");
+              }
             }}
             className="page-link"
             style={currentPage === num ? { color: "black" } : {}}
@@ -31,6 +47,15 @@ function Pagination({
           </a>
         </li>
       ))}
+      <button className="page-btn">
+        <GrNext
+          onClick={() => {
+            if (currentPage < pageNumbers.length) {
+              paginate(currentPage + 1, "left");
+            }
+          }}
+        />
+      </button>
     </div>
   );
 }
