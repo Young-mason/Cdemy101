@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { productItems } from "../productItems";
 import Pagination from "./Pagination";
 import pointer from "../modules/pointer";

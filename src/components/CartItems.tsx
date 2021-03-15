@@ -55,9 +55,9 @@ function CartItems({
         }</h5>
       </div>
       <div className="cart-btns">
-        <a className="delete" onClick={removeFromCart}>
+        <span className="delete" onClick={removeFromCart}>
           삭제하기
-        </a>
+        </span>
         <div
           className="coupon"
           style={availableCoupon !== false ? { opacity: 1 } : {}}
