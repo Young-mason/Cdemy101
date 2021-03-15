@@ -1,6 +1,6 @@
 ## INTRO
 
-글로벌 강의서비스 Udemy 의 UI를 참고하여 구현하였습니다 ! 
+안녕하세요, 글로벌 강의서비스 Udemy 의 UI를 참고하여 장바구니 기능을 구현하였습니다 ! 
 
 1440 X 1024 화면 사이즈에 최적화되어 있습니다 🙂 
 
@@ -22,7 +22,7 @@
 
 ### 1. 상품 목록 페이지
 
-[products](https://media.vlpt.us/images/young_mason/post/522a5346-d4c0-452e-bde7-d88ac9497ef2/cdemy_products.gif)
+[👉 gif](https://media.vlpt.us/images/young_mason/post/522a5346-d4c0-452e-bde7-d88ac9497ef2/cdemy_products.gif)
 
 - Route :  `/products`
 - 상품의 가격, 사진, 제목을 표시하였습니다.
@@ -37,7 +37,7 @@
 
 ### 2. 장바구니 페이지
 
-[cart](https://media.vlpt.us/images/young_mason/post/1279a9a5-8057-403b-a2c8-96b14eebf3c1/cdemy_cart.gif)
+[👉 gif](https://media.vlpt.us/images/young_mason/post/1279a9a5-8057-403b-a2c8-96b14eebf3c1/cdemy_cart.gif)
 
 - Route : `/cart`
 - 장바구니의 상품 중 결제에 포함할 상품을 체크박스를 통해 선택하도록 하였습니다
