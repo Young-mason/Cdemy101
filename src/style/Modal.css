@@ -24,6 +24,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  animation-name: modalopen;
+  animation-duration: 0.7s;
 }
 
 .modal-header h2 {
@@ -58,4 +60,14 @@
   border: 0;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
