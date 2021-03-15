@@ -1,8 +1,11 @@
 import "../style/Header.css";
 import { Link } from "react-router-dom";
 import { IoCartOutline } from "react-icons/io5";
+import { useCartState } from "../modules/CartContext";
 
 function Header() {
+  const cartItems = useCartState();
+
   return (
     <header className="header">
       <Link to="/" className="logo">
@@ -17,6 +20,9 @@ function Header() {
         <h4>My Learning</h4>
         <Link to="/cart" className="cart">
           <IoCartOutline />
+          <div id="badge">
+            <span>{cartItems.length}</span>
+          </div>
         </Link>
         <div className="profile">
           <img
